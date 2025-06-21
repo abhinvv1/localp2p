@@ -2,9 +2,15 @@
   "name": "cli",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
+  "bin": {
+    "localp2p": "./bin/localp2p"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "build": "pkg src/index.js --out-path dist/",
+    "test": "npm run test:integration",
+    "test:integration": "node test/integration-test.js"
   },
   "keywords": [],
   "author": "",
