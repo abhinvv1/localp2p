@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  peer1:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: localp2p-peer1
+    hostname: peer1
+    ports:
+      - "8081:8080"
+      - "9091:9090"
+    environment:
+      - NODE_ENV=development
+    networks:
+      localp2p-net:
+        ipv4_address: 172.20.0.10
+    volumes:
+      - peer1-data:/app/data
+
+  peer2:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: localp2p-peer2
+    hostname: peer2
+    ports:
+      - "8082:8080"
+      - "9092:9090"
+    environment:
+      - NODE_ENV=development
+    networks:
+      localp2p-net:
+        ipv4_address: 172.20.0.11
+    volumes:
+      - peer2-data:/app/data
+
+networks:
+  localp2p-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  peer1-data:
+  peer2-data:
